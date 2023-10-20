@@ -1,0 +1,14 @@
+experiment informations:
+train_time = 4
+cuda = 7
+lr = 2e-05
+num_convs = 4
+hidden_channels = 256
+actor_mlp_layers = 3
+actor_mlp_list = [256, 512, 128, 1]
+critic_mlp_layers = 3
+critic_mlp_list = [256, 512, 128, 1]
+total_epoch = 120
+batch_size = 32
+norm_mode = zscore
+max_cells = 50000
