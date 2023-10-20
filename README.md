@@ -1,5 +1,8 @@
 # GRL-SVO
 
+# 10/20/2023
+The final vision is coming soon.
+
 ## Setup
 
 - GRL-SVO: source code and datasets;
