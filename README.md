@@ -1,8 +1,5 @@
 # GRL-SVO
 
-# 10/20/2023
-The final vision is coming soon.
-
 ## Setup
 
 - GRL-SVO: source code and datasets;
@@ -18,10 +15,6 @@ The final vision is coming soon.
 5. >pip install -e .
 ---
 
-## Notes
-
-We are unable to provide the dataset anonymously due to its large size (> 1GB). Training and testing cannot run, we are very sorry for that.
-
 ## Training
 
 Position: `GRL-SVO/`
@@ -31,8 +24,6 @@ For GRL-SVO(NUP)
 
 For GRL-SVO(UP)
 > python train_grl_svo_up.py
-
-As GRL-SVO(UP) will interact with MAPLE, a new trajectory may make errors (we have stored most trajectories used in previous training, but not all). We have prepared some trained models in ./models/ diretory. One can still test the models.
 
 ## Testing
 
