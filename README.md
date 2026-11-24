@@ -27,7 +27,7 @@ python evaluate.py outputs/nup.jsonl
 python evaluate.py outputs/up.jsonl
 ```
 
-For all bundled NUP test sets, add `--variables 3 4 5 6 7 8 9` to the prediction command. Evaluation uses the bundled CAD results.
+For all bundled test sets, add `--variables 3 4 5 6 7 8 9` to either the UP or NUP prediction command. Evaluation uses the bundled CAD results.
 
 For your own polynomials, use [data/example.jsonl](data/example.jsonl) as a template, with one JSON object per line:
 
@@ -51,7 +51,7 @@ Use a new output file or directory for each run.
 
 ## Acknowledgements
 
-`projection.mpl` adapts nine routines from [ProjectionCAD V3.18 (11 February 2015)](https://researchdata.bath.ac.uk/71/), maintained by Matthew England at the University of Bath, with Russell Bradford, James H. Davenport and David Wilson. University of Bath is the rights holder. The GRL-SVO adaptation extracts the projection/factorization routines, exposes two entry points, renames the module and removes documentation. This adapted file is distributed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+`projection.mpl` adapts nine projection/factorization routines from [ProjectionCAD V3.18](https://researchdata.bath.ac.uk/71/), maintained by Matthew England; see [England, Wilson, Bradford and Davenport (2014)](https://doi.org/10.1007/978-3-662-44199-2_69). The GRL-SVO adaptation extracts the projection/factorization routines, exposes two entry points, renames the module and removes documentation. This adapted file is distributed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 
 ## Contact
 
