@@ -1,53 +1,59 @@
 # GRL-SVO
 
-# 10/20/2023
-The final vision is coming soon.
+## Overview
 
-## Setup
+Implementation of [Suggesting Variable Order for Cylindrical Algebraic Decomposition via Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2023/hash/efcb5b06ce8bb672ffa26b9dc5cdd0f9-Abstract-Conference.html), NeurIPS 2023.
 
-- GRL-SVO: source code and datasets;
-- cad.tar.gz: conda environment;
-- requirements.txt: required python packages.
+GRL-SVO uses reinforcement learning to choose a variable ordering for cylindrical algebraic decomposition (CAD). It provides two variants: **UP** updates the polynomial system through projection as it selects variables, while **NUP** uses learned graph updates without computing projections.
 
-#### Auto pip install
+## Installation
 
-1. >conda create -n cad python=3.7.0
-2. >conda activate cad
-3. >pip install -r requirements.txt
-4. >cd GRL-SVO/cad_order_gym
-5. >pip install -e .
----
+Python 3.10+ on Linux. Run commands from the repository root:
 
-## Notes
+```bash
+pip install -r requirements.txt
+```
 
-We are unable to provide the dataset anonymously due to its large size (> 1GB). Training and testing cannot run, we are very sorry for that.
+For UP prediction, replace `/path/to/maple` with the Maple command-line executable. UP training uses cached projections.
+
+## Prediction and evaluation
+
+Run the published checkpoints on the random three-variable test set:
+
+```bash
+python predict.py --variant nup --output outputs/nup.jsonl
+python predict.py --variant up --maple /path/to/maple --output outputs/up.jsonl
+python evaluate.py outputs/nup.jsonl
+python evaluate.py outputs/up.jsonl
+```
+
+For all bundled NUP test sets, add `--variables 3 4 5 6 7 8 9` to the prediction command. Evaluation uses the bundled CAD results.
+
+For your own polynomials, use [data/example.jsonl](data/example.jsonl) as a template, with one JSON object per line:
+
+```bash
+python predict.py --variant nup --input data/example.jsonl --output outputs/example-nup.jsonl
+python predict.py --variant up --input data/example.jsonl --maple /path/to/maple --output outputs/example-up.jsonl
+```
 
 ## Training
 
-Position: `GRL-SVO/`
+Train on the bundled three-variable data for 100 epochs, with validation after every epoch:
 
-For GRL-SVO(NUP)
-> python train_grl_svo_nup.py
+```bash
+python train.py --variant nup --output outputs/train-nup
+python train.py --variant up --output outputs/train-up
+```
 
-For GRL-SVO(UP)
-> python train_grl_svo_up.py
+Each run saves `best.pth` (best validation checkpoint) and `last.pth` (final epoch). To test either file, add `--checkpoint /path/to/model.pth` to the matching prediction command above.
 
-As GRL-SVO(UP) will interact with MAPLE, a new trajectory may make errors (we have stored most trajectories used in previous training, but not all). We have prepared some trained models in ./models/ diretory. One can still test the models.
+Use a new output file or directory for each run.
 
-## Testing
+## Acknowledgements
 
-Position: `GRL-SVO/`
+`projection.mpl` adapts nine routines from [ProjectionCAD V3.18 (11 February 2015)](https://researchdata.bath.ac.uk/71/), maintained by Matthew England at the University of Bath, with Russell Bradford, James H. Davenport and David Wilson. University of Bath is the rights holder. The GRL-SVO adaptation extracts the projection/factorization routines, exposes two entry points, renames the module and removes documentation. This adapted file is distributed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 
-For GRL-SVO(NUP)
-> python predict_grl_svo_nup.py
+## Contact
 
-The result is stored in `./predict_result/nup_rand3/result_nup.log`
-
-> cat ./predict_result/nup_rand3/result_nup.log
-
-For GRL-SVO(UP)
-> python predict_grl_svo_up.py
-
-GRL-SVO(UP) must interact with MAPLE during the testing process. If MAPLE is not installed, `predict_grl_svo_up.py` can only run one step, and the intermediate information stores in `GRL_SVO/predict_result/up_rand3`. 
-
-> cat GRL_SVO/predict_result/up_rand3/action_1.log
+- Fuqi Jia: [jiafq@ios.ac.cn](mailto:jiafq@ios.ac.cn)
+- Yuhang Dong: [dongyuhang22@mails.ucas.ac.cn](mailto:dongyuhang22@mails.ucas.ac.cn)
